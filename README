@@ -152,6 +152,14 @@ METHODS
     Used by methods to make the method apply to the default object
     if called statically without affecting normal object methods.
 
+  _class()
+
+    The `_class' method provides the opposite of the `_self' method.
+    Instead of always getting an object, `_class' will always get
+    the class name, so a method can be guarenteed to run in a static
+    context. This is not essential to the use of a `Class::Default'
+    module, but is provided as a convenience.
+
   _get_default()
 
     Used to get the default object directly.

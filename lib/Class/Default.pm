@@ -12,7 +12,7 @@ use Carp;
 # Define globals
 use vars qw{$VERSION %DEFAULT};
 BEGIN { 
-	$VERSION = 0.1;
+	$VERSION = 0.2;
 	
 	# Create the default object storage.
 	%DEFAULT = ();
@@ -25,6 +25,12 @@ sub _self {
 	: $DEFAULT{$either} 
 		|| ($DEFAULT{$either} = $either->_create_default_object)
 		|| croak "Error while creating default object";
+}
+
+# Suplimentary method to reliably get ONLY the class
+sub _class {
+	my $either = shift;
+	return ref($either) || $either;
 }
 
 # Retrieve the default object for a class, either from
@@ -211,6 +217,14 @@ the following
 
 Used by methods to make the method apply to the default object if called
 statically without affecting normal object methods.
+
+=head2 _class()
+
+The C<_class> method provides the opposite of the C<_self> method. Instead
+of always getting an object, C<_class> will always get the class name, so
+a method can be guarenteed to run in a static context. This is not 
+essential to the use of a C<Class::Default> module, but is provided as a
+convenience.
 
 =head2 _get_default()
 

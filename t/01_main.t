@@ -9,7 +9,7 @@ use lib '../../modules';
 use lib '../lib'; # For installation testing
 use Class::Inspector;
 use UNIVERSAL 'isa';
-use Test::Simple tests => 21;
+use Test::Simple tests => 23;
 
 # Set up any needed globals
 use vars qw{$loaded $cd $cdt};
@@ -75,6 +75,11 @@ sub hash {
 	return "$self";
 }
 
+sub class {
+	my $class = shift->_class;
+	return $class;
+}
+
 1;
 
 package main;
@@ -116,3 +121,6 @@ ok( "$default1" eq "$default2", "Second object matches the first object" );
 ok( $object->hash eq "$object", "Result of basic object method matchs" );
 ok( Class::Default::Test1->hash eq "$default1", "Result of basic static method matchs" );
 
+# Check the result of the _class method
+ok( Class::Default::Test1->class eq 'Class::Default::Test1', "Static ->_class returns the class" );
+ok( $default1->class eq 'Class::Default::Test1', "Object ->_class returns the class" );
