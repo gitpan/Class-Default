@@ -1,5 +1,9 @@
 Revision history for Perl extension Class::Default.
 
+1.0  Mon Dec 15 2003
+	- Minor code cleanup to slightly reduce memory overhead
+	- Incrementing to version 1.0
+
 0.2  Mon May 27 11:37:06 2002
         - Added the _class method
         - Fixed Makefile.PL to install Class::Inspector before testing

@@ -1,22 +1,20 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 
 # Formal testing for Class::Default
 
 # Do all the tests on ourself, since we know we will be loaded.
 
 use strict;
-use lib '../../modules';
-use lib '../lib'; # For installation testing
-use Class::Inspector;
 use UNIVERSAL 'isa';
-use Test::Simple tests => 23;
+use File::Spec::Functions qw{:ALL};
+use lib catdir( updir(), updir(), 'modules' ), # Development testing
+        catdir( updir(), 'lib' );              # For installation testing
+use Test::More tests => 22;
 
 # Set up any needed globals
-use vars qw{$loaded $cd $cdt};
+use vars qw{$cd $cdt};
 BEGIN {
-	$loaded = 0;
 	$| = 1;
-
 	$cd = 'Class::Default';
 	$cdt = 'Class::Default::Test1';
 }
@@ -27,19 +25,14 @@ BEGIN {
 # Check their perl version
 BEGIN {
 	ok( $] >= 5.005, "Your perl is new enough" );
-	ok( Class::Inspector->installed( 'Carp' ), "Carp is installed" );	
 }
-	
+
 
 
 
 
 # Does the module load
-END { ok( 0, 'Class::Default loads OK' ) unless $loaded; }
-use Class::Default;
-$loaded = 1;
-ok( 1, 'Class::Default loads OK' );
-
+use_ok( 'Class::Default' );
 
 
 
@@ -56,28 +49,28 @@ sub new {
 	my $self = {
 		name => undef,
 		};
-	return bless $self, $class;
+	bless $self, $class;
 }
 
 sub setName {
 	my $self = shift->_self;
 	my $value = shift;
 	$self->{name} = $value;
-	return 1;
+	1;
 }
 sub getName {
 	my $self = shift->_self;
-	return $self->{name};
+	$self->{name};
 }
 
 sub hash {
 	my $self = shift->_self;
-	return "$self";
+	"$self";
 }
 
 sub class {
 	my $class = shift->_class;
-	return $class;
+	$class;
 }
 
 1;

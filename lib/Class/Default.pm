@@ -12,7 +12,7 @@ use Carp;
 # Define globals
 use vars qw{$VERSION %DEFAULT};
 BEGIN { 
-	$VERSION = 0.2;
+	$VERSION = '1.0';
 	
 	# Create the default object storage.
 	%DEFAULT = ();
@@ -21,23 +21,20 @@ BEGIN {
 # Get the default object if we are passed the class name.
 sub _self { 
 	my $either = shift;
-	return ref($either) ? $either 
+	ref($either) ? $either 
 	: $DEFAULT{$either} 
 		|| ($DEFAULT{$either} = $either->_create_default_object)
 		|| croak "Error while creating default object";
 }
 
 # Suplimentary method to reliably get ONLY the class
-sub _class {
-	my $either = shift;
-	return ref($either) || $either;
-}
+sub _class { ref $_[0] or $_[0] }
 
 # Retrieve the default object for a class, either from
 # the cache, or create it new.
 sub _get_default {
 	my $class = shift; 
-	return $DEFAULT{$class} 
+	$DEFAULT{$class} 
 		|| ($DEFAULT{$class} = $class->_create_default_object)
 		|| croak "Error while creating default object";
 }
@@ -51,11 +48,11 @@ sub _create_default_object {
 	### arguments to the constructor call as needed.
 
 	# Create the new object.
-	my $self = $class->new( );
+	my $self = $class->new;
 
 	### Make any modifications to the default object here
 
-	return $self;
+	$self;
 }
 
 1;
@@ -209,16 +206,16 @@ statically accessible object can be recovered later.
 There are a few ways to do this, but the easiest way is to simple do
 the following
 
-  my $default = Slashdot::User->_get_default();
+  my $default = Slashdot::User->_get_default;
 
 =head1 METHODS
 
-=head2 _self()
+=head2 _self
 
 Used by methods to make the method apply to the default object if called
 statically without affecting normal object methods.
 
-=head2 _class()
+=head2 _class
 
 The C<_class> method provides the opposite of the C<_self> method. Instead
 of always getting an object, C<_class> will always get the class name, so
@@ -226,11 +223,11 @@ a method can be guarenteed to run in a static context. This is not
 essential to the use of a C<Class::Default> module, but is provided as a
 convenience.
 
-=head2 _get_default()
+=head2 _get_default
 
 Used to get the default object directly.
 
-=head2 _create_default_object()
+=head2 _create_default_object
 
 To be overloaded by your class to set any properties to the default
 object at creation time.

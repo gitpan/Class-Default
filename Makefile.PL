@@ -4,10 +4,12 @@ WriteMakefile(
 	'NAME'         => 'Class::Default',
 	'VERSION_FROM' => 'lib/Class/Default.pm',
 	'PREREQ_PM'    => {
-		'Class::Inspector' => 0,
+		'File::Spec'       => 0.83,
+		'Test::More'       => 0,
+		'Class::Inspector' => 1,
 	},
 	($] >= 5.005) ? (
-		'AUTHOR'     => 'Adam Kennedy (adam@ali.as)',
-		'ABSTRACT'   => "Static methods apply to a defaulf instantiation",
+		'AUTHOR'     => 'Adam Kennedy (cpan@ali.as)',
+		'ABSTRACT'   => "Static methods apply to a default instantiation",
 	) : (),
 );
