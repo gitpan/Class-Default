@@ -1,5 +1,16 @@
 Revision history for Perl extension Class::Default.
 
+1.2  Tue Jan 11 2005
+	- There are no functional changes in this release
+	- Resolved CPAN #9581 Missing changes for 1.1
+	- See rt.cpan bug page for why I released to fix this if needed.
+
+1.1  Sat Oct  2 2004
+	- There are no functional changes in this release
+	- Upgraded Makefile.PL to Module::Build
+	- Modernised the test scripts
+	- Call Carp::croak explicitly
+
 1.0  Mon Dec 15 2003
 	- Minor code cleanup to slightly reduce memory overhead
 	- Incrementing to version 1.0

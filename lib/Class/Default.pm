@@ -12,7 +12,7 @@ use Carp ();
 # Define globals
 use vars qw{$VERSION %DEFAULT};
 BEGIN { 
-	$VERSION = '1.1';
+	$VERSION = '1.2';
 
 	# Create the default object storage.
 	%DEFAULT = ();
