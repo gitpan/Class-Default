@@ -2,80 +2,27 @@
 
 # Formal testing for Class::Default
 
-# Do all the tests on ourself, since we know we will be loaded.
-
 use strict;
+use lib ();
 use UNIVERSAL 'isa';
-use File::Spec::Functions qw{:ALL};
-use lib catdir( updir(), updir(), 'modules' ), # Development testing
-        catdir( updir(), 'lib' );              # For installation testing
-use Test::More tests => 22;
+use File::Spec::Functions ':ALL';
+BEGIN {
+	$| = 1;
+	unless ( $ENV{HARNESS_ACTIVE} ) {
+		require FindBin;
+		chdir ($FindBin::Bin = $FindBin::Bin); # Avoid a warning
+		lib->import( catdir( updir(), updir(), 'modules') );
+	}
+}
+
+use Test::More tests => 20;
 
 # Set up any needed globals
 use vars qw{$cd $cdt};
 BEGIN {
-	$| = 1;
 	$cd = 'Class::Default';
 	$cdt = 'Class::Default::Test1';
 }
-
-
-
-
-# Check their perl version
-BEGIN {
-	ok( $] >= 5.005, "Your perl is new enough" );
-}
-
-
-
-
-
-# Does the module load
-use_ok( 'Class::Default' );
-
-
-
-
-# Create the test package
-package Class::Default::Test1;
-
-use strict;
-
-use base 'Class::Default';
-
-sub new {
-	my $class = shift;
-	my $self = {
-		name => undef,
-		};
-	bless $self, $class;
-}
-
-sub setName {
-	my $self = shift->_self;
-	my $value = shift;
-	$self->{name} = $value;
-	1;
-}
-sub getName {
-	my $self = shift->_self;
-	$self->{name};
-}
-
-sub hash {
-	my $self = shift->_self;
-	"$self";
-}
-
-sub class {
-	my $class = shift->_class;
-	$class;
-}
-
-1;
-
-package main;
 
 
 
@@ -117,3 +64,44 @@ ok( Class::Default::Test1->hash eq "$default1", "Result of basic static method m
 # Check the result of the _class method
 ok( Class::Default::Test1->class eq 'Class::Default::Test1', "Static ->_class returns the class" );
 ok( $default1->class eq 'Class::Default::Test1', "Object ->_class returns the class" );
+
+
+
+
+
+
+# Define the testing package
+package Class::Default::Test1;
+
+use base 'Class::Default';
+
+sub new {
+	my $class = shift;
+	my $self = {
+		name => undef,
+		};
+	bless $self, $class;
+}
+
+sub setName {
+	my $self = shift->_self;
+	my $value = shift;
+	$self->{name} = $value;
+	1;
+}
+sub getName {
+	my $self = shift->_self;
+	$self->{name};
+}
+
+sub hash {
+	my $self = shift->_self;
+	"$self";
+}
+
+sub class {
+	my $class = shift->_class;
+	$class;
+}
+
+1;

@@ -5,15 +5,15 @@ package Class::Default;
 
 # See POD for more details.
 
-require 5.005;
+use 5.005;
 use strict;
-use Carp;
+use Carp ();
 
 # Define globals
 use vars qw{$VERSION %DEFAULT};
 BEGIN { 
-	$VERSION = '1.0';
-	
+	$VERSION = '1.1';
+
 	# Create the default object storage.
 	%DEFAULT = ();
 }
@@ -24,7 +24,7 @@ sub _self {
 	ref($either) ? $either 
 	: $DEFAULT{$either} 
 		|| ($DEFAULT{$either} = $either->_create_default_object)
-		|| croak "Error while creating default object";
+		|| Carp::croak "Error while creating default object";
 }
 
 # Suplimentary method to reliably get ONLY the class
@@ -34,9 +34,9 @@ sub _class { ref $_[0] or $_[0] }
 # the cache, or create it new.
 sub _get_default {
 	my $class = shift; 
-	$DEFAULT{$class} 
+	$DEFAULT{$class}
 		|| ($DEFAULT{$class} = $class->_create_default_object)
-		|| croak "Error while creating default object";
+		|| Carp::croak "Error while creating default object";
 }
 
 # Creates the default object. 
@@ -238,17 +238,15 @@ No known bugs, but suggestions are welcome
 
 =head1 SUPPORT
 
+Bugs should be reported via the CPAN bug tracker at
+
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Class%3ADefault>
+
 Contact the author
 
 =head1 AUTHOR
 
-        Adam Kennedy
-        cpan@ali.as
-        http://ali.as/
-
-=head1 SEE ALSO
-
-Class::*
+Adam Kennedy (Maintainer), L<http://ali.as/>, cpan@ali.as
 
 =head1 COPYRIGHT
 

@@ -1,13 +1,15 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Class-Default
-version:      1.0
-version_from: lib/Class/Default.pm
-installdirs:  site
-requires:
-    Class::Inspector:              1
-    File::Spec:                    0.83
-    Test::More:                    0
-
+name: Class-Default
+version: 1.1
+abstract: Static methods apply to a default instantiation
+author: Adam Kennedy<cpan@ali.as>
+license: perl
 distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.16
+build_requires:
+  Test::More: 0.47
+  File::Spec: 0.82
+requires:
+  perl: 5.005
+no_index:
+  directory:
+    - inc
+generated_by: Module::Install version 0.35

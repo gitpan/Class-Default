@@ -161,15 +161,14 @@ BUGS
     No known bugs, but suggestions are welcome
 
 SUPPORT
+    Bugs should be reported via the CPAN bug tracker at
+
+    <http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Class%3ADefault>
+
     Contact the author
 
 AUTHOR
-            Adam Kennedy
-            cpan@ali.as
-            http://ali.as/
-
-SEE ALSO
-    Class::*
+    Adam Kennedy (Maintainer), <http://ali.as/>, cpan@ali.as
 
 COPYRIGHT
     Copyright (c) 2002 Adam Kennedy. All rights reserved. This program is
