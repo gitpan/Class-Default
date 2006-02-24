@@ -4,14 +4,17 @@
 
 use strict;
 use lib ();
-use UNIVERSAL 'isa';
 use File::Spec::Functions ':ALL';
 BEGIN {
 	$| = 1;
 	unless ( $ENV{HARNESS_ACTIVE} ) {
 		require FindBin;
-		chdir ($FindBin::Bin = $FindBin::Bin); # Avoid a warning
-		lib->import( catdir( updir(), updir(), 'modules') );
+		$FindBin::Bin = $FindBin::Bin; # Avoid a warning
+		chdir catdir( $FindBin::Bin, updir() );
+		lib->import(
+			catdir('blib', 'lib'),
+			'lib',
+			);
 	}
 }
 
@@ -20,7 +23,7 @@ use Test::More tests => 20;
 # Set up any needed globals
 use vars qw{$cd $cdt};
 BEGIN {
-	$cd = 'Class::Default';
+	$cd  = 'Class::Default';
 	$cdt = 'Class::Default::Test1';
 }
 
@@ -39,8 +42,8 @@ ok( Class::Default::Test1->can( '_create_default_object' ),
 
 # Object gets created...
 my $object = Class::Default::Test1->new();
-ok( isa( $object, "Class::Default::Test1" ), "Object isa Class::Default::Test1" );
-ok( isa( $object, "Class::Default" ), "Object isa Class::Default" );
+isa_ok( $object, "Class::Default::Test1" );
+isa_ok( $object, "Class::Default" );
 ok( ! scalar keys %Class::Default::DEFAULT, "DEFAULT hash remains empty after normal object creation" );
 
 # Default gets created

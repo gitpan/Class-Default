@@ -12,7 +12,7 @@ use Carp ();
 # Define globals
 use vars qw{$VERSION %DEFAULT};
 BEGIN { 
-	$VERSION = '1.3';
+	$VERSION = '1.4';
 
 	# Create the default object storage.
 	%DEFAULT = ();
@@ -189,8 +189,13 @@ object.
   	return $self;
   }
   
-  sub name { $_[0]->{name} }
-  sub favourite_color { $_[0]->{favourite_color} }
+  sub name {
+  	$_[0]->_self->{name};
+  }
+  
+  sub favourite_color {
+  	$_[0]->_self->{favourite_color};
+  }
 
 That provides a statically accessible default object that could be used as in
 the following manner.
@@ -240,17 +245,22 @@ No known bugs, but suggestions are welcome
 
 Bugs should be reported via the CPAN bug tracker at
 
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Class%3ADefault>
+L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Class-Default>
 
-Contact the author
+For other issues, contact the author
 
 =head1 AUTHOR
 
-Adam Kennedy (Maintainer), L<http://ali.as/>, cpan@ali.as
+Adam Kennedy E<lt>cpan@ali.asE<gt>
+
+=head1 SEE ALSO
+
+L<http://ali.as/>, L<Class::Singleton>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2002 Adam Kennedy. All rights reserved.
+Copyright (c) 2002 - 2006 Adam Kennedy. All rights reserved.
+
 This program is free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.
 
