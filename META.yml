@@ -1,17 +1,15 @@
-
+abstract: Static calls apply to a default instantiation
+author: Adam Kennedy <cpan@ali.as>
+build_requires: 
+  Test::More: 0.47
+distribution_type: module
+generated_by: Module::Install version 0.63
+license: perl
+name: Class-Default
 no_index: 
   directory: 
     - inc
     - t
-generated_by: Module::Install version 0.57
-distribution_type: module
-version: 1.4
-name: Class-Default
-author: Adam Kennedy <cpan@ali.as>
-license: perl
-build_requires: 
-  Test::More: 0.47
-  File::Spec: 0.82
 requires: 
   perl: 5.005
-abstract: Static calls apply to a default instantiation
+version: 1.50
